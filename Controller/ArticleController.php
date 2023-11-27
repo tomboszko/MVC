@@ -2,8 +2,16 @@
 
 declare(strict_types = 1);
 
+require_once 'DatabaseManager.php';
+
 class ArticleController
 {
+    private $dbManager;
+
+    public function __construct() {
+        $this->dbManager = new DatabaseManager('localhost', 'MVC', 'toms', 'root', 'utf8mb4');
+    }
+
     public function index()
     {
         // Load all required data
@@ -13,13 +21,11 @@ class ArticleController
         require 'View/articles/index.php';
     }
 
-    // Note: this function can also be used in a repository - the choice is yours
     private function getArticles()
     {
-        // TODO: prepare the database connection
-        // Note: you might want to use a re-usable databaseManager class - the choice is yours
-        // TODO: fetch all articles as $rawArticles (as a simple array)
-        $rawArticles = [];
+        // Fetch all articles as $rawArticles
+        $stmt = $this->dbManager->executeQuery("SELECT * FROM articles");
+        $rawArticles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $articles = [];
         foreach ($rawArticles as $rawArticle) {
@@ -30,8 +36,30 @@ class ArticleController
         return $articles;
     }
 
-    public function show()
-    {
+    
+    
         // TODO: this can be used for a detail page
+
+        
+        public function show($id)
+        {
+            // Execute a query to retrieve the article with the given ID
+            $stmt = $this->dbManager->executeQuery("SELECT * FROM articles WHERE id = ?", [$id]);
+
+            // Fetch the article data
+            $rawArticle = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Check if an article was found
+            if (!$rawArticle) {
+                // TODO: Handle the case where no article was found for the given ID
+                return;
+            }
+
+            // Create an Article object
+            $article = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+
+            // Load the detail view and pass the Article object to it
+            // TODO: Replace 'View/articles/show.php' with the actual path to your detail view
+            require 'View/articles/show.php';
+        }
     }
-}
