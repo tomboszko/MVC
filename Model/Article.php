@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once 'DatabaseManager.php';
+
 class Article
 {
     public string $title;
@@ -15,8 +17,15 @@ class Article
         $this->publishDate = $publishDate;
     }
 
-    public function formatPublishDate($format = 'DD-MM-YYYY')
+    public function formatPublishDate($format = 'd-m-Y')
     {
-        // TODO: return the date in the required format
+        // Create a DateTime object from the publishDate property
+        $date = new DateTime($this->publishDate);
+
+        // Format the DateTime object 
+        $formattedDate = $date->format($format);
+
+        // Return the formatted date
+        return $formattedDate;
     }
 }

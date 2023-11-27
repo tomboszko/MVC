@@ -25,8 +25,19 @@ switch ($page) {
         // $articleController->index();
         (new ArticleController())->index();
         break;
-    case 'articles-show':
-        // TODO: detail page
+   
+        case 'articles-show':
+            $articleId = $_GET['id'] ?? null;
+            if ($articleId) {
+                (new ArticleController())->show($articleId);
+            } else {
+                // Handle the case where no id was provided
+                echo 'No article id provided';
+            }
+            break;
+
+
+
     case 'home':
     default:
         (new HomepageController())->index();

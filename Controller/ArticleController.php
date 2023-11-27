@@ -55,6 +55,5 @@ class ArticleController
 
         // Load the detail view and pass the Article object to it
         // TODO: Replace 'View/articles/show.php' with the actual path to your detail view
-        require 'View/articles/show.php';
-    }
-}
+        require './View/articles/show.php';
+    }}
