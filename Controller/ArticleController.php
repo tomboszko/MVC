@@ -13,13 +13,35 @@ class ArticleController
         require 'View/articles/index.php';
     }
 
-    // Note: this function can also be used in a repository - the choice is yours
     private function getArticles()
     {
-        // TODO: prepare the database connection
-        // Note: you might want to use a re-usable databaseManager class - the choice is yours
-        // TODO: fetch all articles as $rawArticles (as a simple array)
-        $rawArticles = [];
+        // Database connection parameters
+        $host = 'localhost';
+        $db   = 'MVC';
+        $user = 'toms';
+        $pass = 'root';
+        $charset = 'utf8mb4';
+
+        // DSN (Data Source Name)
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+        // PDO options
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        // Create a new PDO instance
+        try {
+            $pdo = new PDO($dsn, $user, $pass, $options);
+        } catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+        }
+
+        // Fetch all articles as $rawArticles (as a simple array)
+        $stmt = $pdo->query('SELECT * FROM articles');
+        $rawArticles = $stmt->fetchAll();
 
         $articles = [];
         foreach ($rawArticles as $rawArticle) {

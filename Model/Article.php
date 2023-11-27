@@ -18,5 +18,11 @@ class Article
     public function formatPublishDate($format = 'DD-MM-YYYY')
     {
         // TODO: return the date in the required format
+        if ($this->publishDate === null) {
+            return null;
+        }
+        $date = DateTime::createFromFormat('Y-m-d', $this->publishDate);
+        return $date->format($format);
+
     }
 }

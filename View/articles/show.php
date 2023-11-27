@@ -2,6 +2,10 @@
 
 <?php // Use any data loaded in the controller here ?>
 
+<h1><?= $article->getTitle() ?></h1>
+<p><?= $article->getDescription() ?></p>
+<p>Published on: <?= $article->formatPublishDate() ?></p>
+
 <section>
     <h1><?= $article->title ?></h1>
     <p><?= $article->formatPublishDate() ?></p>
