@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS MVC;
 USE MVC;
 
 CREATE TABLE IF NOT EXISTS articles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     description TEXT,
     publish_date DATETIME
