@@ -5,6 +5,12 @@ declare(strict_types=1);
 class Article
 {
     private $publish_date;
+    private $id;
+    private $title;
+    private $description;
+    private $content;
+    private $author;
+
 
     public function __construct($title, $description, $content, $id, $author, $publish_date)
     {
@@ -16,13 +22,12 @@ class Article
         $this->publish_date = $publish_date;
     }
 
-    public function formatPublishDate($format = 'Y-m-d H:i:s')
-    {
-        $date = new DateTime($this->publish_date);
-        $formattedDate = $date->format($format);
 
-        return $formattedDate;
-    }
+
+    public function getPublishedDate()
+    {
+        return $this->publish_date;
+}
 
     public function getId()
     {
