@@ -4,52 +4,37 @@ declare(strict_types=1);
 
 class Article
 {
-    private $title;
-    private $description;
-    private $publishDate;
-    private $id;
-    private $author;
-    private $content;
+    private $publish_date;
 
-    public function __construct(string $title, string $description, string $publishDate, $id, string $author, string $content)
+    public function __construct($title, $description, $content, $id, $author, $publish_date)
     {
         $this->title = $title;
         $this->description = $description;
-        $this->publishDate = $publishDate;
+        $this->content = $content;
         $this->id = $id;
         $this->author = $author;
-        $this->content = $content;
+        $this->publish_date = $publish_date;
     }
 
-    public function getTitle(): string
+    public function formatPublishDate($format = 'Y-m-d H:i:s')
     {
-        return $this->title;
+        $date = new DateTime($this->publish_date);
+        $formattedDate = $date->format($format);
+
+        return $formattedDate;
     }
 
-    // Add other getter methods for description and publishDate
+    public function getId()
+    {
+        return $this->id;
+    }
 
-public function formatPublishDate($format = 'd-m-Y')
-{
-    // Create a DateTime object
-    $date = new DateTime($this->publishDate);
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-    // Format the date
-    $formattedDate = $date->format($format);
-
-    return $formattedDate;
-}
-
-public function getId()
-{
-    return $this->id;
-}
-
-public function getDescription()
-{
-    return $this->description;
-}
-
-public function getContent()
+    public function getContent()
     {
         return $this->content;
     }
@@ -58,5 +43,8 @@ public function getContent()
     {
         return $this->author;
     }
-
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }
