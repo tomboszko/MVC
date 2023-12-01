@@ -30,7 +30,7 @@ switch ($page) {
             $id = $_GET['id'];
             (new ArticleController())->detail($id);
             break;
-    case 'author': // Add this case
+    case 'AuthorModel': 
         $authorName = $_GET['name'];
         (new AuthorController())->detail($authorName);
         break;

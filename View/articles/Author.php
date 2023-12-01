@@ -1,3 +1,9 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
 
 <h1><a href="/author/<?= urlencode($author->getName()) ?>"><?= $author->getName() ?></a></h1>
 <h2>Articles:</h2>

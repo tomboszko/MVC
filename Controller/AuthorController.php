@@ -1,5 +1,8 @@
-
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 class AuthorController {
     private $authorModel; // Define the $authorModel property
@@ -17,7 +20,7 @@ class AuthorController {
     {
         // Retrieve the author's details and articles from the database
         $author = $this->authorModel->getAuthorByName($authorName);
-        $articles = $this->articleModel->getArticlesByAuthor($authorName);
+        $articles = $this->articleModel->getArticlesByAuthor($authorName); // Call the getArticlesByAuthor method
 
         // Pass the author's details and articles to the view
         require_once('View/articles/Author.php');
